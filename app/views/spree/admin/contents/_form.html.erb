@@ -62,18 +62,3 @@
   <% end %>
 
 </div>
-
-<% content_for :head do %>
-  <script type="text/javascript">
-  //<![CDATA[
-    $(document).ready(function() {
-      $('#content_body').markItUp(markdownSettings);
-      $('#btn_optional').click(function(evt) {
-        evt.preventDefault();
-        var vis = $('.optional').toggle().css('display') == 'block';
-        $(this).find('span').html(vis ? '&#9660;' : '&#9650;');
-      });
-    }); 
-  //]]>
-  </script>
-<% end %>
