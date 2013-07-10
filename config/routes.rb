@@ -1,4 +1,4 @@
-Spree::Core::Engine.routes.append do
+Spree::Core::Engine.routes.prepend do
 
   namespace :admin do
 
@@ -21,9 +21,9 @@ Spree::Core::Engine.routes.append do
     end
 
   end
-
-  constraints(Spree::PossiblePage) do
-    get '(:page_path)', :to => 'pages#show', :page_path => /.*/, :as => :page
-  end
+#
+#  constraints(Spree::PossiblePage) do
+#    get '(:page_path)', :to => 'pages#show', :page_path => /.*/, :as => :page
+#  end
 
 end

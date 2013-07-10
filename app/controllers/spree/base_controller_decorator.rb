@@ -7,7 +7,11 @@ Spree::BaseController.class_eval do
   # Example: //my_path
   # dirty fix: manual gsub for the moment
   def current_page
-    @page ||= Spree::Page.find_by_path(request.fullpath.gsub('//', '/'))
+    fp = request.fullpath.gsub('//', '/')
+    if fp.index('?')
+      fp = fp.slice(0...(fp.index('?')))
+    end
+    @page ||= Spree::Page.find_by_path(fp)
   end
 
   def get_pages

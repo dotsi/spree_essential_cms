@@ -37,9 +37,13 @@ class Spree::Page < ActiveRecord::Base
   def for_context(context)
     contents.where(:context => context)
   end
+
+  def for_context_random(context, count = 1)
+    contents.where(:context => context).order("RAND()").limit(count)
+  end
   
   def has_context?(context)
-    contents.where(:context => context).count
+    contents.where(:context => context).count > 0 ?  true : false
   end
     
   def matches?(_path)
@@ -54,6 +58,17 @@ class Spree::Page < ActiveRecord::Base
     value = value.to_s.strip
     value.gsub!(/[\/\-\_]+$/, "") unless value == "/"
     write_attribute :path, value
+  end
+
+  def siblings
+    p = path
+    if p.count("/") > 1
+      while p[p.size - 1] != "/"
+        p.chop!
+      end
+      p.chop!
+    end
+    Spree::Page.where(:visible => true).where("path LIKE ?",  p+"%").order("position")
   end
   
   private

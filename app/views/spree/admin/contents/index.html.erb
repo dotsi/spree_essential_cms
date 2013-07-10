@@ -56,6 +56,7 @@
   <tr>
       <th><%= sort_link @search, :title, t("content.title") %></th>
       <th><%= sort_link @search, :context, t("content.context") %></th>
+      <th><%= sort_link @search, :template, t("content.template") %></th>
       <th data-hook="admin_contents_index_header_actions" class="actions"></th>
   </tr>
   </thead>
@@ -63,7 +64,7 @@
     <%- @collection.each do |content|%>
     <tr id="<%= spree_dom_id content %>">
       <td><span class="handle">&nbsp;</span>&nbsp; <%= link_to content.title, object_url(content) %></td>
-      <td><%= content.context %>
+      <td><%= content.context %></td><td><%= content.template %></td>
       <td class='actions'>
         <%= link_to_edit content, :no_text => true, :class => 'edit' %>
         &nbsp;

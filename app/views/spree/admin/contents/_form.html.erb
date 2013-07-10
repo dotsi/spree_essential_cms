@@ -16,14 +16,26 @@
   <%= error_message_on :content, :body %>
 <% end %>
 
-<p><%= link_to "Optional Fields <span>&#9650;</span>".html_safe, "#options", :id => "btn_optional" %></p>
-
-<div class="optional" style="display: none;">
+<div class="four columns alpha" style="">
 
   <%= form.field_container :context do %>
     <%= form.label :context, t('content.context') %><br />
-    <%= form.text_field :context, :class => "text"  %>
+    <%= form.select :context, options_for_select(["top", "content", "botom", "side_top", "side", "side_bottom", "slider", "slider_side"],:disabled => ["Izberi kontekst"], :selected => @content.context) %>
+    <%# form.text_field :context, :class => "text"  %>
     <%= error_message_on :content, :context %>
+  <% end %>
+
+  <%= form.field_container :template do %>
+    <%= form.label :template, t('content.template') %><br />
+    <%= form.select :template, options_for_select(["general", "text", "boxed", "faq", "stripe_ad", "featured_product"],:disabled => ["Izberi template"], :selected => @content.template) %>
+    <%# form.text_field :template, :class => "text"  %>
+    <%= error_message_on :content, :template %>
+  <% end %>
+
+  <%= form.field_container :css_class do %>
+    <%= form.label :css_class, t('content.css_class') %><br />
+    <%= form.text_field :css_class, :class => "text"  %>
+    <%= error_message_on :content, :css_class %>
   <% end %>
 
   <%= form.field_container :attachment do %>
@@ -61,6 +73,40 @@
     <%= error_message_on :content, :hide_title %>
   <% end %>
 
+  <%= form.field_container :ignore_params do %>
+    <%= form.check_box :ignore_params, :class => "checkbox"  %>
+    <%= form.label :ignore_params, t('content.ignore_params') %><br />
+    <%= error_message_on :content, :ignore_params %>
+  <% end %>
+
+</div>
+<div class="eight columns omega">
+  <h3>Kontekst</h3>
+  <small>Pozicija na strani. Konteksti delujejo, če je na strani za njih predviden prostor</small>
+  <ul>
+    <li>top - na vrhu nad glavno vsebino</li>
+    <li>content - med glavno vsebino</li>
+    <li>bottom - pod glavno vsebino</li>
+    <li>sidebar_top - na vrhu nad stransko vsebino</li>
+    <li>sidebar - med stransko vsebino</li>
+    <li>sidebar_bottom - pod stransko vsebino</li>
+    <li>slide - jumbo oglas: file je slika, povezava je link, besedilo povezave je link title ali z vejicami ločeni id drugih vsebin s kontekstom slide npr. 45,56,46,52</li>
+  </ul>
+  <br>
+  <h3>Template</h3>
+  <small>Tip in izgled vsebine. Template določa izgled vsebine in način uporabe posameznih polj iz obrazca</small>
+  <ul>
+    <li>general</li>
+    <li>text</li>
+    <li>boxed</li>
+    <li>faq</li>
+    <li>stripe_ad</li>
+    <li>featured_product</li>
+  </ul>
+  <br>
+  <h3>CSS Class</h3>
+  <small>doda css class elementu v katerem se prikazuje vsebina</small>
+  <br><br>
 </div>
 
 <% content_for :head do %>    	
