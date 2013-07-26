@@ -1,0 +1,34 @@
+<% featured_product ||= @featured_product %>
+<% image_size ||= :medium %>
+<% html ||= false %>
+<% featured_product_counter ||= 0 %>
+
+<% unless featured_product.nil? %>
+  
+  <div class="featured_product<%= ' alt' if featured_product_counter % 2 == 0 %>" id="<%= dom_id(featured_product) %>">
+    
+    <% if featured_product.has_image? %>
+      <div class="featured_product-left">
+        <%= image_tag featured_product.attachment.url(image_size), :alt => featured_product.title, :class => 'in-featured_product' %>
+      </div>
+    <% end %>
+    
+    <div class="<%= featured_product.has_image? ? "featured_product-right" : "featured_product-main" %>">
+      <% unless featured_product.hide_title? %>
+        <h1 class="title"><%= featured_product.title %></h1>
+      <% end %>
+      
+      <%= featured_product.rendered_body %>
+      
+      <% if featured_product.has_full_link? %>
+        <%= link_to featured_product.link_text || 'read more', featured_product.link %>
+      <% end %>
+    </div>    
+  
+    <!-- <br class="clear"/> -->
+        
+  </div>
+  
+  <!-- <br class="clear"/> -->
+
+<% end %>

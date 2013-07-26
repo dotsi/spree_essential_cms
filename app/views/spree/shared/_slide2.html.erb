@@ -1,0 +1,29 @@
+<% slide2 ||= @slide2 %>
+<% image_size ||= :original %>
+<% html ||= false %>
+<% slide2_counter ||= 0 %>
+
+<% unless slide2.nil? %>
+  <% contents = [slide2] %>
+  <% if !slide2.link_text.nil? and slide2.link_text != "" %>
+    <% ids = slide2.link_text.split(",") %>
+    <% contents = Spree::Contents.find(:all, ids)%>
+  <% end %>
+  <% for slide2 in contents %>
+  
+  <div class="slide<%= ' alt' if slide2_counter % 2 == 0 %>" id="<%= dom_id(slide2) %>">
+    <% if slide2.has_full_link? %>
+    <a href="<%= slide2.link %>" title="<%#= slide2.link_text %>">
+    <% end %>
+    <% if slide2.has_image? %>
+        <%= image_tag slide2.attachment.url(image_size), :alt => slide2.title, :class => 'in-slide2', :style => "" %>
+    <% end %>
+    
+    <% if slide2.has_full_link? %>
+    </a>
+    <% end %>
+  </div>
+  
+  
+   <% end %>
+<% end %>

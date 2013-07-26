@@ -70,6 +70,10 @@ class Spree::Page < ActiveRecord::Base
     end
     Spree::Page.where(:visible => true).where("path LIKE ?",  p+"%").order("position")
   end
+
+  def parent?
+    path.count("/") == 1
+  end
   
   private
   

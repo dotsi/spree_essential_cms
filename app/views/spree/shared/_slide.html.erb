@@ -1,0 +1,44 @@
+<% slide ||= @slide %>
+<% image_size ||= :original %>
+<% html ||= false %>
+<% slide_counter ||= 0 %>
+
+<% unless slide.nil? %>
+  <% contents = [slide] %>
+  <% if !slide.link_text.nil? and slide.link_text != "" %>
+    <% ids = slide.link_text.split(",") %>
+    <% contents = Spree::Content.find(ids)%>
+  <% end %>
+  <% for sld in contents %>
+  
+  <li class="slide<%= ' alt' if slide_counter % 2 == 0 %>" id="<%= dom_id(sld) %>">
+    <% if sld.has_full_link? %>
+    <a href="<%= slide.link %>" title="<%#= slide.link_text %>" class="ad">
+    <% end %>
+    <% if sld.has_image? %>
+      <!-- <div class="slide-left"> -->
+        <%= image_tag sld.attachment.url(image_size), :alt => sld.title, :class => 'in-slide' %>
+      <!-- </div> -->
+    <% end %>
+    <!--
+    <div class="<%#= slide.has_image? ? "slide-right" : "slide-main" %>">
+      <%# unless slide.hide_title? %>
+        <h1 class="title"><%#= slide.title %></h1>
+      <%# end %>
+      
+      
+      
+      <%# if slide.has_full_link? %>
+        <%#= link_to slide.link_text || 'read more', slide.link %>
+      <%# end %>
+    </div>-->    
+  
+    <!--<br class="clear"/>-->
+    <% if sld.has_full_link? %>
+    </a>
+    <% end %>
+  </li>
+  
+  <!--<br class="clear"/>-->
+   <% end %>
+<% end %>
